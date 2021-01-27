@@ -12,11 +12,11 @@ The result should be a list of intervals (in months) that groups the orders base
 age (creation date field in the product entity). If we have orders in the older intervals it means
 that older products are still being sold.
 
-# Example
+### Example
 
   `$ java -jar orders.jar "2018-01-01 00:00:00" "2019-01-01 00:00:00"`
 
-# Result:
+### Result:
 - 1-3 months: 200 orders
 - 4-6 months: 150 orders
 - 7-12 months: 50 orders
