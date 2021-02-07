@@ -26,6 +26,7 @@ case class GroupsCalculator(orders: Iterable[Order], parameters: Parameters) {
       case interval@(c: Closed) => interval -> filteredOrders.filter(closedTimeFilter(c, _))
       case interval@(ro: RightOpen) => interval -> filteredOrders.filter(rightTimeFilter(ro,_))
       case interval@(lo: LeftOpen) => interval -> filteredOrders.filter(leftOpenTimeFilter(lo, _))
+      case a => throw new Exception(s"Intervalo não reconhecível ${a.getClass}")
     }.toMap
   }
 
@@ -33,6 +34,7 @@ case class GroupsCalculator(orders: Iterable[Order], parameters: Parameters) {
     case LeftOpen(end) => LeftOpen(end)
     case RightOpen(start) => RightOpen(start)
     case Closed(start, end) => Closed(start, end)
+    case _ => throw new Exception("Padrão de intervalo desconhecido")
   }
 
   private def closedTimeFilter(c: Closed, order: Order): Boolean = {

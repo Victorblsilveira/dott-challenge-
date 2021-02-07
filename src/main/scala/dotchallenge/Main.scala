@@ -10,7 +10,7 @@ import scala.concurrent.{ExecutionContext, Future}
 
 object Main {
 
-  // Starting an actor system to allow concurrency under the hoods
+  // Starting an actor system to allow concurrency/parallelism under the hoods
   implicit val actorSystem: ActorSystem = ActorSystem()
   implicit val executionContext: ExecutionContext = actorSystem.dispatchers.lookup("dedicated-dispatcher")
 
