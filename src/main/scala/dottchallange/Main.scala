@@ -1,0 +1,35 @@
+package dottchallange
+
+import akka.actor.ActorSystem
+import dottchallange.calculator.GroupsCalculator
+import dottchallange.data.DataGenerator
+import dottchallange.models.{Order, Parameters}
+import dottchallange.validator.Validator
+
+import scala.concurrent.{ExecutionContext, Future}
+
+object Main {
+
+  // Starting an actor system to allow concurrency under the hoods
+  implicit val actorSystem: ActorSystem = ActorSystem()
+  implicit val executionContext: ExecutionContext = actorSystem.dispatchers.lookup("dedicated-dispatcher")
+
+  def main(args: Array[String]): Unit = {
+    for {
+      parameters <- validateArgs(args)
+      orders <- generateData(parameters)
+    } yield calculateGroups(parameters, orders)
+  }
+
+  private def validateArgs(args: Array[String]): Future[Parameters] = {
+    Validator("yyyy-MM-dd HH:mm:ss").validate(args)
+  }
+
+  private def generateData(parameters: Parameters): Future[Iterable[Order]] = {
+    DataGenerator(parameters).generate
+  }
+
+  private def calculateGroups(parameters: Parameters, orders: Iterable[Order]): Unit = {
+    GroupsCalculator(orders, parameters).print()
+  }
+}

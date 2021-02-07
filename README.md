@@ -7,6 +7,7 @@ The purpose of this exercise is to check if older products are still being sold.
 - Product: information about the product (name, category, weight, price, creation date, ...)
 
 These entities are all related: one order contains several items and each item has a product.
+
 Please implement a tool that receives an interval and filters all orders placed during that interval.
 The result should be a list of intervals (in months) that groups the orders based on the product
 age (creation date field in the product entity). If we have orders in the older intervals it means
