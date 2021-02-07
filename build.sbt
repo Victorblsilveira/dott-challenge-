@@ -1,4 +1,6 @@
-name := "dot-challange"
+import sbt.File
+
+name := "dot-challenge"
 
 version := "0.1"
 
@@ -13,3 +15,7 @@ libraryDependencies ++= Seq(
   "com.typesafe.akka" %% "akka-testkit" % akkaVersion,
   "com.typesafe.akka" %% "akka-actor-testkit-typed" % akkaVersion % Test,
 )
+
+mainClass in assembly := Some("dotchallenge.Main")
+test in assembly := {}
+assemblyJarName in assembly := "orders.jar"
